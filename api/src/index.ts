@@ -4,6 +4,10 @@ import { ApolloServer, gql } from "apollo-server-express";
 import { createConnection, getRepository } from "typeorm";
 import { Task } from "./entities/Task";
 
+function hoge () {
+    return 1;
+}
+
 const typeDefs = gql`
 type Task {
     id: ID
@@ -24,27 +28,27 @@ const resolvers = {
             return list;
         }
     }
-}
+};
 
 const startServer = async () => {
-  await createConnection({
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "test",
-    password: "test",
-    database: "test_db",
-    entities: [Task],
-});
+    await createConnection({
+        type: "mysql",
+        host: "localhost",
+        port: 3306,
+        username: "test",
+        password: "test",
+        database: "test_db",
+        entities: [Task],
+    });
 
-  const app = express();
-  const server = new ApolloServer({ typeDefs, resolvers });
+    const app = express();
+    const server = new ApolloServer({ typeDefs, resolvers });
 
-  server.applyMiddleware({ app });
+    server.applyMiddleware({ app });
 
-  app.listen({ port: 4000 }, () => {
-    console.log("server online");
-  });
+    app.listen({ port: 4000 }, () => {
+      console.log("server online");
+    });
 };
 
 startServer();

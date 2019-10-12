@@ -1,13 +1,11 @@
 import {
     Entity,
     PrimaryColumn,
-    Column,
-    BaseEntity
+    Column
 } from "typeorm";
 
-
 @Entity("tasks")
-export class Task extends BaseEntity {
+export class Task {
     @PrimaryColumn()
     id!: string;
 
