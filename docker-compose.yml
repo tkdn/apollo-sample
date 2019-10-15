@@ -1,6 +1,7 @@
 version: "3.7"
 
 services:
+
   mysql:
     container_name: apollo-work-mysql
     image: mysql:5.7
@@ -16,3 +17,12 @@ services:
       MYSQL_PASSWORD: test
       MYSQL_DATABASE: test_db
       TZ: 'Asia/Tokyo'
+
+  dynamodb:
+    container_name: apollo-work-dynamodb
+    image: amazon/dynamodb-local
+    ports:
+      - 8000:8000
+    command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
+    volumes:
+      - ./dynamoData:/data
