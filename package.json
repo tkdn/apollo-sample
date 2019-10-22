@@ -7,6 +7,7 @@
     "author": "tkdn <tkdnation@gmail.com>",
     "license": "MIT",
     "scripts": {
+        "dev:api": "yarn workspace api dev",
         "lint:api": "eslint 'api/**/*.ts'",
         "lint:client": "eslint 'client/**/*.{ts,tsx}'"
     },

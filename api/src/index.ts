@@ -1,12 +1,25 @@
 import "reflect-metadata";
 import express from "express";
+import session from "express-session";
+import connectRedis from "connect-redis";
+import Redis from "ioredis";
 import { ApolloServer, gql } from "apollo-server-express";
 import { createConnection, getRepository } from "typeorm";
 import { Task } from "./entities/Task";
 
-function hoge () {
-    return 1;
-}
+const RedisStore = connectRedis(session);
+const redisClient = new Redis();
+
+const sessionHandler = session({
+    secret: "cat",
+    saveUninitialized: false,
+    resave: false,
+    // @ts-ignore
+    store: new RedisStore({ client: redisClient }),
+    cookie: {
+        secure: false
+    }
+});
 
 const typeDefs = gql`
 type Task {
@@ -20,14 +33,26 @@ type Query {
 }
 `;
 
+const helloResolver = async (_root: any, _args: any, ctx: {req: express.Request}) => {
+    // @ts-ignore
+    ctx.req.session.user = {
+        name: "John"
+    };
+    const taskRepo = getRepository(Task);
+    const list = await taskRepo.find();
+    return list;
+};
+
 const resolvers = {
     Query: {
-        async hello() {
-            const taskRepo = getRepository(Task);
-            const list = await taskRepo.find();
-            return list;
-        }
+        hello: helloResolver
     }
+};
+
+const context = (request: {req: express.Request}) => {
+    return {
+        req: request.req,
+    };
 };
 
 const startServer = async () => {
@@ -42,7 +67,8 @@ const startServer = async () => {
     });
 
     const app = express();
-    const server = new ApolloServer({ typeDefs, resolvers });
+    app.use(sessionHandler);
+    const server = new ApolloServer({ typeDefs, resolvers, context });
 
     server.applyMiddleware({ app });
 

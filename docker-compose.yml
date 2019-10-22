@@ -18,11 +18,16 @@ services:
       MYSQL_DATABASE: test_db
       TZ: 'Asia/Tokyo'
 
-  dynamodb:
-    container_name: apollo-work-dynamodb
-    image: amazon/dynamodb-local
+  redis:
+    image: redis:5
     ports:
-      - 8000:8000
-    command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
-    volumes:
-      - ./dynamoData:/data
+      - "6379:6379"
+
+  # dynamodb:
+  #   container_name: apollo-work-dynamodb
+  #   image: amazon/dynamodb-local
+  #   ports:
+  #     - 8000:8000
+  #   command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
+  #   volumes:
+  #     - ./dynamoData:/data
