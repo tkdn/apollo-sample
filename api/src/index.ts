@@ -11,12 +11,16 @@ const RedisStore = connectRedis(session);
 const redisClient = new Redis();
 
 const sessionHandler = session({
+    name: "_session",
     secret: "cat",
     saveUninitialized: false,
     resave: false,
     // @ts-ignore
     store: new RedisStore({ client: redisClient }),
     cookie: {
+        domain: "localhost",
+        maxAge: 60 * 60 * 1000,
+        sameSite: "lax",
         secure: false
     }
 });
@@ -68,6 +72,19 @@ const startServer = async () => {
 
     const app = express();
     app.use(sessionHandler);
+
+    app.get("/", (req, res) => {
+        // @ts-ignore
+        req.session.user = {
+            name: "John"
+        };
+        res.send("ok");
+    });
+
+    app.get("/some", (req, res) => {
+        res.send("some ok");
+    });
+
     const server = new ApolloServer({ typeDefs, resolvers, context });
 
     server.applyMiddleware({ app });
