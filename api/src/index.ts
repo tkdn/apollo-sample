@@ -3,7 +3,7 @@ import express from "express";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import Redis from "ioredis";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer, gql, ApolloError } from "apollo-server-express";
 import { createConnection, getRepository } from "typeorm";
 import { pipeResolvers } from "graphql-resolvers";
 
@@ -29,45 +29,79 @@ const sessionHandler = session({
 });
 
 const typeDefs = gql`
+type User {
+    id: Int
+    hashedUid: String
+    task: [Task]
+}
 type Task {
     id: ID
-    userId: ID
+    userId: Int
     overview: String
     priority: Int
     deadline: String
+    user: User
+}
+type Hoge {
+    foo: String
+    bar: Int
 }
 type Query {
-    hello: [Task]
+    task: [Task]
+    user: [User]
+    hoge: Hoge
 }
 `;
 
-const pipe = (_root: any, _args: any, ctx: any) => {
-    ctx.some = "ワッフル";
-    return ctx.some;
-    // return new Error("waffle");
+const pipe = () => {
+    const some = "ワッフル";
+    return new ApolloError(some);
+    // return some;
 };
 
-const helloResolver = async (
+const hoge = () => ({foo: "foo", bar: 1});
+
+const user = async (
     _root: any,
-    _args: any,
-    ctx: {req: express.Request, some: string}
+    // _args: any,
+    // ctx: {req: express.Request}
 ) => {
-    console.log(ctx.some);
-    ctx.req.session!.user = {
-        name: "John"
-    };
-    const taskRepo = getRepository(Task);
+    console.log(_root);
     const userRepo = getRepository(User);
-    const list = await taskRepo.find();
-    const [user] = await userRepo.findByIds([1]);
-    console.log(user);
-    return list;
+    const users = userRepo.find();
+    // const [user] = await userRepo.findByIds([1]);
+    return users;
 };
 
-const hello = pipeResolvers(pipe, helloResolver);
+const taskResolver = async (
+    // _root: any,
+    // _args: any,
+    // ctx: {req: express.Request}
+) => {
+    // console.log(_root);
+    // ctx.req.session!.user = {
+    //     name: "John"
+    // };
+    const taskRepo = getRepository(Task);
+    const tasks = await taskRepo.find();
+    const userRepo = getRepository(User);
+    return tasks.map(async (task) => {
+        const [user] = await userRepo.findByIds([task.userId]);
+        return {
+            ...task,
+            user
+        };
+    });
+};
+
+const task = pipeResolvers(pipe, taskResolver);
 
 const resolvers = {
-    Query: { hello }
+    Query: {
+        task,
+        user,
+        hoge
+    }
 };
 
 const context = ({req}: {req: express.Request}) => {
@@ -88,7 +122,12 @@ const startServer = async () => {
     const app = express();
     app.use(sessionHandler);
 
-    const server = new ApolloServer({ typeDefs, resolvers, context });
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        context,
+        tracing: true
+    });
 
     server.applyMiddleware({ app });
 

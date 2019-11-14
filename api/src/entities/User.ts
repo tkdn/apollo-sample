@@ -7,7 +7,7 @@ import {
 @Entity("users")
 export class User {
     @PrimaryColumn()
-    id!: string;
+    id!: number;
 
     @Column({
         name: "hashed_uid",
