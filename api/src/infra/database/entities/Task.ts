@@ -1,8 +1,11 @@
 import {
     Entity,
+    Column,
     PrimaryColumn,
-    Column
+    BeforeInsert
 } from "typeorm";
+
+import { v4 as uuid } from "uuid";
 
 @Entity("tasks")
 export class Task {
@@ -12,7 +15,7 @@ export class Task {
     @Column({
         name: "user_id"
     })
-    userId!: string;
+    userId!: number;
 
     @Column("varchar", { length: 255 })
     overview!: string;
@@ -22,4 +25,10 @@ export class Task {
 
     @Column("timestamp")
     deadline!: string;
+
+    @BeforeInsert()
+    idBeforeInsert() {
+        this.id = uuid();
+        // this.id = "hogefugafoobar";
+    }
 }

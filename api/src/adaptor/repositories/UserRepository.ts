@@ -14,7 +14,7 @@ export class UserRepository extends IUserRepository {
         return await this.dbRepo.find();
     }
 
-    public async getById(uid: string) {
+    public async getById(uid: number) {
         const [user] = await this.dbRepo.findByIds([uid]);
         return user;
     }

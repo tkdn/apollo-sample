@@ -12,6 +12,7 @@
         "@types/graphql-resolvers": "^0.2.2",
         "@types/ioredis": "^4.0.18",
         "@types/node": "^10.14.20",
+        "@types/uuid": "^3.4.6",
         "nodemon": "^1.19.3",
         "ts-node": "^8.4.1",
         "typescript": "^3.6.3"
@@ -27,6 +28,7 @@
         "mysql": "^2.17.1",
         "reflect-metadata": "^0.1.13",
         "typedi": "^0.8.0",
-        "typeorm": "^0.2.19"
+        "typeorm": "^0.2.19",
+        "uuid": "^3.3.3"
     }
 }

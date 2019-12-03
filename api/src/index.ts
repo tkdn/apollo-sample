@@ -29,7 +29,7 @@ const sessionHandler = session({
 });
 
 const startServer = async () => {
-    const connection = await createConnection({
+    await createConnection({
         type: "mysql",
         host: "localhost",
         port: 3306,
