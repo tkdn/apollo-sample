@@ -1,3 +1,29 @@
 {
-    "compilerOptions": { "experimentalDecorators": true },
+    "compilerOptions": {
+        "incremental": true,
+        "target": "es5",
+        "module": "commonjs",
+        "lib": [
+          "esnext.asynciterable"
+        ],
+        "sourceMap": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noEmit": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "jsx": "react"
+    },
+    "exclude": [
+        "node_modules",
+        "./node_modules",
+        "./node_modules/*",
+    ]
 }
