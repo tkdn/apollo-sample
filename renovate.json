@@ -3,16 +3,28 @@
         ":timezone(Asia/Tokyo)",
         "group:monorepos",
         "packages:stylelint",
+        ":prConcurrentLimit10",
+        ":ignoreModulesAndTests",
         ":widenPeerDependencies"
     ],
     "npm": {
         "extends": [
             ":noUnscheduledUpdates",
+            ":separatePatchReleases",
             ":unpublishSafe",
             "helpers:disableTypesNodeMajor"
         ],
-        "schedule": "after 1pm every weekday",
+        "schedule": [
+            "before 11am on Monday"
+        ],
         "rangeStrategy": "bump",
+        "lockFileMaintenance": {
+            "enabled": true,
+            "schedule": [
+                "before 3am on the first day of the month"
+            ]
+        },
+        "semanticCommits": true,
         "semanticCommitType": "chore",
         "packageRules": [
             {
@@ -23,7 +35,18 @@
                 "updateTypes": [
                     "patch"
                 ],
-                "automerge": false
+                "automerge": true
+            },
+            {
+                "groupName": "Lint libraries",
+                "packageNames": [
+                    "eslint",
+                    "tslint"
+                ],
+                "packagePatterns": [
+                    "^eslint-config-",
+                    "^eslint-plugin-"
+                ]
             }
         ]
     }
