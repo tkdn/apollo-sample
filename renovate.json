@@ -1,0 +1,30 @@
+{
+    "extends": [
+        ":timezone(Asia/Tokyo)",
+        "group:monorepos",
+        "packages:stylelint",
+        ":widenPeerDependencies"
+    ],
+    "npm": {
+        "extends": [
+            ":noUnscheduledUpdates",
+            ":unpublishSafe",
+            "helpers:disableTypesNodeMajor"
+        ],
+        "schedule": "after 1pm every weekday",
+        "rangeStrategy": "bump",
+        "semanticCommitType": "chore",
+        "packageRules": [
+            {
+                "separateMinorPatch": true,
+                "depTypeList": [
+                    "devDependencies"
+                ],
+                "updateTypes": [
+                    "patch"
+                ],
+                "automerge": false
+            }
+        ]
+    }
+}
