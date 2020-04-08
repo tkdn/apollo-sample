@@ -14,16 +14,7 @@
             ":unpublishSafe",
             "helpers:disableTypesNodeMajor"
         ],
-        "schedule": [
-            "before 11am on Monday"
-        ],
         "rangeStrategy": "bump",
-        "lockFileMaintenance": {
-            "enabled": true,
-            "schedule": [
-                "before 3am on the first day of the month"
-            ]
-        },
         "semanticCommits": true,
         "semanticCommitType": "chore",
         "packageRules": [
