@@ -18,7 +18,7 @@
         "typescript": "^3.8.3"
     },
     "dependencies": {
-        "apollo-server-express": "^2.11.0",
+        "apollo-server-express": "^2.12.0",
         "connect-redis": "^4.0.4",
         "express": "^4.17.1",
         "express-session": "^1.17.0",
