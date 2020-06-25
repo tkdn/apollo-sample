@@ -244,10 +244,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/graphql-resolvers@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@types/graphql-resolvers/-/graphql-resolvers-0.2.2.tgz#f795397eb48b4a8fd4a267ca935c0e65db27507b"
-  integrity sha512-Uv4rQlj74MYvyPIPDxOVqhO6d8wrpKST5Lty0OuZaaAL+TCxWtNBQxIjwUTXYMvXeQZs+RopY1dkXOfqUnJAGg==
+"@types/graphql-resolvers@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@types/graphql-resolvers/-/graphql-resolvers-0.3.0.tgz#24a92fd2402d37176b5695dc939334603f0db978"
+  integrity sha512-ZVPCHAl88iUA+d/nhJKctQ86JOzfjs/SnE9MuqDPtufEx6akiiBnF1MP+nutrdd3OJJiRWAhtAkWPtOuCNZtGA==
   dependencies:
     graphql "^14.5.3"
     graphql-tools "^4.0.5"
