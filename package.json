@@ -17,8 +17,8 @@
         "client"
     ],
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^3.8.0",
-        "@typescript-eslint/parser": "^3.8.0",
+        "@typescript-eslint/eslint-plugin": "^3.9.0",
+        "@typescript-eslint/parser": "^3.9.0",
         "eslint": "^7.6.0",
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-react": "^7.20.5",
