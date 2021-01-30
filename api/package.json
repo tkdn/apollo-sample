@@ -27,7 +27,7 @@
         "ioredis": "^4.19.4",
         "mysql": "^2.18.1",
         "reflect-metadata": "^0.1.13",
-        "typedi": "^0.8.0",
+        "typedi": "^0.10.0",
         "typeorm": "^0.2.29",
         "uuid": "^8.3.2"
     }
