@@ -3,7 +3,7 @@ import { Task } from "../../infra/database/entities/Task";
 import { ITaskRepository } from "../../application/interfaces/ITaskRespositoty";
 import { fetch } from "apollo-server-env";
 
-function sleep(ms: number) {
+function sleep(ms: number): Promise<void> {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve();
