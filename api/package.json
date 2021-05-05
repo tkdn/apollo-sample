@@ -24,7 +24,7 @@
         "express-session": "^1.17.1",
         "graphql": "^15.5.0",
         "graphql-resolvers": "^0.4.2",
-        "ioredis": "^4.27.1",
+        "ioredis": "^4.27.2",
         "mysql": "^2.18.1",
         "reflect-metadata": "^0.1.13",
         "typeorm": "^0.2.32",
